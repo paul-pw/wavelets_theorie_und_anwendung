@@ -1,0 +1,5 @@
+build/*
+!build/*.pdf
+compile_commands.json
+books
+.vscode
