@@ -80,6 +80,9 @@
 
 %Offizele Akronyme
 \DeclareAcronym{iso}{short=ISO, long=International Organization for Standardization}
+\DeclareAcronym{cwt}{short=CWT, long=Stetige Wavelet Transformation}
+\DeclareAcronym{dwt}{short=DWT, long=Diskrete Wavelet Transformation}
+\DeclareAcronym{fwt}{short=FWT, long=Schnelle Wavelet Transformation}
 
 \newcommand{\reals}{\ensuremath{\mathbb{R}}}
 \newcommand{\natnums}{\ensuremath{\mathbb{N}}}
@@ -178,24 +181,87 @@ Sie erlauben es Signale zu analysieren, Signale zu komprimieren,
 Rauschen zu entfernen und vieles mehr.
 Die Wavelet Transformation hat einige Ähnlichkeiten mit der Fourier Transformation
 allerdings ist die Wavelet Transformation in der Lage Signale
-auch in der Zeitdomäne zu analysieren.
+auch in der Zeitdomäne zu analysieren~\cite{wavelets_intro}.
 Im Gegensatz zur Fourier Transformation lassen sich mit der Wavelet Transformation
-auch Signale mit scharfen Kanten einfach analysieren.
+speziell Lokale Effekte in einem Signal analysieren,
+diese Eigenschaft ist besonders nützlich bei der Analyse von Bildern und Audio Signalen
+und kann unter anderem auch für die Komprimierung dieser Daten eingesetzt werden.
+Wavelets könnten so beispielsweise genutzt werden, 
+um die Frequenz von einer Musikaufnahme zu analysieren.
+Die Wavelet Transformation ermöglicht es dabei die Frequenzen der Töne zu bestimmen
+und zu bestimmen, wann und wie lange diese Töne gespielt werden~\cite[S.17]{wavelet_patterns}.
+Es lässt sich in diesem Beispiel also die musikalische Notation
+eines Stückes rekonstruieren.
+
+\section{Verfahren}
+
+Der Begriff Wavelet kommt von dem Begriff \emph{Wave} also Welle 
+und \emph{let} als Verkleinerungsform, also kleine Welle~\cite[S.2]{wavelet_patterns}.
+Für die Wavelet Transformation wird zuerst eine Basisfunktion gewählt,
+das sogenannte \emph{Analyse Wavelet} oder \emph{Mutter Wavelet}~\cite{wavelets_intro}.
+Mit dieser Basisfunktion wird dann das Signal analysiert.
+Die Basisfunktion wird dabei mit \(\Psi(t)\) bezeichnet.
+Für die Wavelet Transformation wird die Basisfunktion skaliert und verschoben.
+
+Es können verschiedene Arten von Basisfunktionen gewählt werden,
+einige davon werden in Abschnitt~\ref{sec:basis_functions} vorgestellt.
+Alle Basisfunktionen müssen jedoch einige Eigenschaften erfüllen.
+Eine wichtige Eigenschaft ist die sogenannte \emph{admisibility} Bedingung~\cite[S.6]{friendly_wavelet}.
+Diese sagt aus, dass die Basisfunktion eine oszillierende Funktion sein muss,
+deren Integral über die Zeit null sein muss~\cite[S.6]{friendly_wavelet}.
+Eine weitere wichtige Eigenschaft ist die \emph{Regularität} des Wavelets.
+Die sorgt für einen schnellen Zerfall des Wavelets, 
+also dafür das die Basisfunktion schnell gegen null geht~\cite[S.6]{friendly_wavelet}.
+Die genannten Eigenschaften reichen nicht aus um ein Wavelet zu definieren,
+geben aber Aufschluss über die Form einer Wavelet Funktion
+als schwingende und schnell abfallende Funktion.
+Es wird kein spezielles Wavelet vorgegeben,
+viel ist es möglich mit diesen Rahmenbedingungen Basisfunktionen zu wählen, 
+die für die jeweiligen Anwendungsfälle angepasst sind~\cite[S.5]{friendly_wavelet}.
+
+\subsection{\acl{cwt}}
+
+Für die \ac{cwt} wird das Mutter Wavelet skaliert und verschoben.
+Der Skalierungsfaktor wird mit \(s\) bezeichnet
+und die Verschiebung des Wavelets mit \(\tau\).
+Das skalierte und verschobene Wavelet wird dann mit dem Signal multipliziert.
+Über das Ergebnis wird dann integriert.
+Es ergibt sich die folgende Wavelet Transformation \(\gamma(s,\tau)\)~\cite[S.5]{friendly_wavelet}
+
+\[
+\gamma(s,\tau)=\int_{-\infty}^{\infty}f(t)\Psi_{s,\tau}(t)dt
+\]
+
+Damit ergibt sich eine zweidimensionale Funktion.
+Die Dimension \(\tau\) beschreibt dabei den Zeitbereich des Signals
+und die Dimension \(s\) beschreibt den Frequenzbereich des Signals.
+Wenn die Wavelet Transformation auf einem zweidimensionalen Signal ausgeführt wird,
+dann ergibt sich eine vierdimensionale Wavelet Transformation~\cite[S.6]{friendly_wavelet}.
+Die Rücktransformation der Wavelet Transformation sieht wie folgt aus~\cite[S.5]{friendly_wavelet}
+
+\[
+f(t)=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\gamma(s,\tau)\Psi_{s,\tau}(t)dsd\tau
+\]
 
 
-\section{Algorithmus}
-\subsection{Integrale Wavelet Transformation}
-\subsection{Diskrete Wavelet Transformation}
-\subsection{Schnelle Wavelet Transformation}
+\subsection{\acl{dwt}}
+\subsection{\acl{fwt}}
 \subsection{Wavelet Pakete}
 % wavelets-an introduction s10 Wavelet Packets
 \subsection{Basis Funktionen}
+\label{sec:basis_functions}
 % Was gibt es für verschiedene Basis funktionen,
 % wofür sind die jeweils nützlich
 
 \section{Wavelet Transformation versus Fourier Transformation}
 
-\section{Anwendungen}
+Die Wavelet Transformation hat einige Ähnlichkeiten zur Fourier Transformation.
+Es wird in beiden fällen die Zusammensetzung des Signals aus Basisfunktionen bestimmter Frequenzen analysiert.
+Bei der Fourier Transformation ist die Basisfunktion eine Sinus oder Cosinus Funktionen.
+Die Wavelet Transformation schränkt die Basisfunktion nicht auf Sinus oder Cosinus Funktionen ein.
+Hier sind alle Funktionen erlaubt, die nicht unendlich sind und ein Integral von 1 haben.
+
+\section{Einsatzgebiete}
 \subsection{Bildverarbeitung}
 \subsubsection{Entrauschen}
 \subsubsection{Retuschieren}
