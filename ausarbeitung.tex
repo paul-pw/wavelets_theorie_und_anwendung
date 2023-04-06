@@ -224,12 +224,19 @@ die für die jeweiligen Anwendungsfälle angepasst sind~\cite[S.5]{friendly_wave
 Für die \ac{cwt} wird das Mutter Wavelet skaliert und verschoben.
 Der Skalierungsfaktor wird mit \(s\) bezeichnet
 und die Verschiebung des Wavelets mit \(\tau\).
-Das skalierte und verschobene Wavelet wird dann mit dem Signal multipliziert.
-Über das Ergebnis wird dann integriert.
-Es ergibt sich die folgende Wavelet Transformation \(\gamma(s,\tau)\)~\cite[S.5]{friendly_wavelet}
+Das geschieht mit der folgenden Formel.
+Dabei dient \(\frac{1}{\sqrt{s}}\) zur Normalisierung der Funktion~\cite[S.5]{friendly_wavelet}. 
 
 \[
-\gamma(s,\tau)=\int_{-\infty}^{\infty}f(t)\Psi_{s,\tau}(t)dt
+\Psi_{s,\tau}(t)=\frac{1}{\sqrt{s}}\Psi(\frac{t-\tau}{s})
+\]
+
+Das skalierte und verschobene Wavelet wird dann mit dem Signal multipliziert.
+Über das Ergebnis wird dann integriert.
+Es ergibt sich die folgende Wavelet Transformation \(W(s,\tau)\)~\cite[S.5]{friendly_wavelet}
+
+\[
+W(s,\tau)=\int_{-\infty}^{\infty}f(t)\Psi_{s,\tau}(t)dt
 \]
 
 Damit ergibt sich eine zweidimensionale Funktion.
@@ -240,12 +247,74 @@ dann ergibt sich eine vierdimensionale Wavelet Transformation~\cite[S.6]{friendl
 Die Rücktransformation der Wavelet Transformation sieht wie folgt aus~\cite[S.5]{friendly_wavelet}
 
 \[
-f(t)=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\gamma(s,\tau)\Psi_{s,\tau}(t)dsd\tau
+f(t)=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}W(s,\tau)\Psi_{s,\tau}(t)dsd\tau
 \]
 
-
 \subsection{\acl{dwt}}
+
+Die \ac{cwt} wandelt ein eindimensionales Signal 
+in einen zweidimensionalen Bereich.
+Das stellt allerdings eine Große Redundanz dar.
+Eine Lösung dafür ist es Wavelets nicht kontinuierlich 
+zu skalieren und zu verschieben, sondern beide Werte zu diskretisieren~\cite[S.8]{friendly_wavelet}.
+
+\[
+  \Psi_{j,k}=\frac{1}{\sqrt{s_0^j}}\Psi(\frac{t-k\tau_0s_0^j}{s_0^j})\;;j\in\mathbb{Z},k\in\mathbb{Z},s_0>1
+\]
+
+Mit diesen diskreten Wavelet Koeffizienten lässt sich nun ein Signal analysieren.
+Das Mutter Wavelet und damit die Transformation ist allerdings weiterhin stetig~\cite[S.8]{friendly_wavelet}.
+Die Transformation kann diskretisiert werden, 
+indem die Wavelet Funktion diskretisiert wird.
+Allerdings kann eine höhere Auflösung erzielt werden, 
+wenn die Wavelet Transformation in zwei Teile, 
+einen Höherfrequenten Teil und einen Niedrigfrequenten Teil
+aufgespalten wird~\cite[S.14]{friendly_wavelet}. 
+
+\[
+\begin{array}{c}
+  W_\varphi(j,k) = \frac{1}{\sqrt{M}}\sum_{x=0}^{M-1}f(x)\varphi_{j,k}(x) \\
+  W_\Psi(j,k) = \frac{1}{\sqrt{M}}\sum_{x=0}^{M-1}f(x)\Psi_{j,k}(x)
+\end{array}
+\]
+
+Dabei beschreibt \(j\) die Skalierung des Wavelets 
+und \(k\) die Verschiebung~\cite[S.9]{wavelet_analysis}.
+
 \subsection{\acl{fwt}}
+
+Die \ac{fwt} ist eine Weiterentwicklung der \ac{dwt},
+die es möglich macht die \ac{dwt} effizienter auszuführen.
+Dafür wird die Trennung der \ac{dwt} in Höherfrequenten
+und Niedrigfrequenten Teil ausgenutzt.
+Eine Wavelet Transformation lässt sich basierend
+auf der Nächsten Wavelet Transformation ausdrücken.
+Wenn für \(\varphi(x)\) und analog für \(\Psi(x)\) gilt 
+
+\[
+\varphi(x) = \sum_n h_{\varphi}(n)\sqrt{2}\varphi(2x-n)
+\]
+
+Dann ergibt sich für \(W_\varphi(j,k)\) die folgende Gleichung~\cite[S.11]{wavelet_analysis}.
+
+\[
+  W_\varphi(j,k)=\sum_m h_\varphi(m-2k)W_\varphi(j-1,m)
+\]
+
+Und analog dazu für \(W_\Psi(j,k)\)~\cite[S.11]{wavelet_analysis}.
+
+\[
+  W_\Psi(j,k)=\sum_m h_\Psi(m-2k)W_\Psi(j-1,m)
+\]
+
+Damit lässt sich die Wavelet Transformation für ein bestimmtes \(j\) 
+einfach aus dem vorherigen \(j\) bilden.
+Es entsteht ein Berechnungsbaum mit dem die Wavelet Transformation
+einfach und schnell berechnet werden kann.
+
+% TODO diagram s.12 wavelet_analysis
+
+
 \subsection{Wavelet Pakete}
 % wavelets-an introduction s10 Wavelet Packets
 \subsection{Basis Funktionen}
