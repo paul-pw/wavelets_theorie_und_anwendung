@@ -29,7 +29,11 @@
 \usepackage{amsfonts} % für \mathbb
 \usepackage{placeins} % für \FloatBarrier
 \usepackage{nicematrix}
- 
+\usepackage{tikz} 
+
+% Tikz setup
+\usetikzlibrary{positioning}
+
 \hypersetup{
   pdfauthor={\Autor},
   pdftitle={\Was},
@@ -171,7 +175,7 @@
 
 \renewcommand{\abstractname}{Abstract} % dass Abstract auch Abstract heißt und nicht zusammenfassung
 \begin{abstract}
-Abstract Stuff
+  Abstract Stuff
 \end{abstract}
 
 \section{Einleitung}
@@ -186,7 +190,7 @@ Im Gegensatz zur Fourier Transformation lassen sich mit der Wavelet Transformati
 speziell Lokale Effekte in einem Signal analysieren,
 diese Eigenschaft ist besonders nützlich bei der Analyse von Bildern und Audio Signalen
 und kann unter anderem auch für die Komprimierung dieser Daten eingesetzt werden.
-Wavelets könnten so beispielsweise genutzt werden, 
+Wavelets könnten so beispielsweise genutzt werden,
 um die Frequenz von einer Musikaufnahme zu analysieren.
 Die Wavelet Transformation ermöglicht es dabei die Frequenzen der Töne zu bestimmen
 und zu bestimmen, wann und wie lange diese Töne gespielt werden~\cite[S.17]{wavelet_patterns}.
@@ -195,7 +199,7 @@ eines Stückes rekonstruieren.
 
 \section{Verfahren}
 
-Der Begriff Wavelet kommt von dem Begriff \emph{Wave} also Welle 
+Der Begriff Wavelet kommt von dem Begriff \emph{Wave} also Welle
 und \emph{let} als Verkleinerungsform, also kleine Welle~\cite[S.2]{wavelet_patterns}.
 Für die Wavelet Transformation wird zuerst eine Basisfunktion gewählt,
 das sogenannte \emph{Analyse Wavelet} oder \emph{Mutter Wavelet}~\cite{wavelets_intro}.
@@ -210,13 +214,13 @@ Eine wichtige Eigenschaft ist die sogenannte \emph{admisibility} Bedingung~\cite
 Diese sagt aus, dass die Basisfunktion eine oszillierende Funktion sein muss,
 deren Integral über die Zeit null sein muss~\cite[S.6]{friendly_wavelet}.
 Eine weitere wichtige Eigenschaft ist die \emph{Regularität} des Wavelets.
-Die sorgt für einen schnellen Zerfall des Wavelets, 
+Die sorgt für einen schnellen Zerfall des Wavelets,
 also dafür das die Basisfunktion schnell gegen null geht~\cite[S.6]{friendly_wavelet}.
 Die genannten Eigenschaften reichen nicht aus um ein Wavelet zu definieren,
 geben aber Aufschluss über die Form einer Wavelet Funktion
 als schwingende und schnell abfallende Funktion.
 Es wird kein spezielles Wavelet vorgegeben,
-viel ist es möglich mit diesen Rahmenbedingungen Basisfunktionen zu wählen, 
+viel ist es möglich mit diesen Rahmenbedingungen Basisfunktionen zu wählen,
 die für die jeweiligen Anwendungsfälle angepasst sind~\cite[S.5]{friendly_wavelet}.
 
 \subsection{\acl{cwt}}
@@ -225,10 +229,10 @@ Für die \ac{cwt} wird das Mutter Wavelet skaliert und verschoben.
 Der Skalierungsfaktor wird mit \(s\) bezeichnet
 und die Verschiebung des Wavelets mit \(\tau\).
 Das geschieht mit der folgenden Formel.
-Dabei dient \(\frac{1}{\sqrt{s}}\) zur Normalisierung der Funktion~\cite[S.5]{friendly_wavelet}. 
+Dabei dient \(\frac{1}{\sqrt{s}}\) zur Normalisierung der Funktion~\cite[S.5]{friendly_wavelet}.
 
 \[
-\Psi_{s,\tau}(t)=\frac{1}{\sqrt{s}}\Psi(\frac{t-\tau}{s})
+  \Psi_{s,\tau}(t)=\frac{1}{\sqrt{s}}\Psi(\frac{t-\tau}{s})
 \]
 
 Das skalierte und verschobene Wavelet wird dann mit dem Signal multipliziert.
@@ -236,7 +240,7 @@ Das skalierte und verschobene Wavelet wird dann mit dem Signal multipliziert.
 Es ergibt sich die folgende Wavelet Transformation \(W(s,\tau)\)~\cite[S.5]{friendly_wavelet}
 
 \[
-W(s,\tau)=\int_{-\infty}^{\infty}f(t)\Psi_{s,\tau}(t)dt
+  W(s,\tau)=\int_{-\infty}^{\infty}f(t)\Psi_{s,\tau}(t)dt
 \]
 
 Damit ergibt sich eine zweidimensionale Funktion.
@@ -247,15 +251,15 @@ dann ergibt sich eine vierdimensionale Wavelet Transformation~\cite[S.6]{friendl
 Die Rücktransformation der Wavelet Transformation sieht wie folgt aus~\cite[S.5]{friendly_wavelet}
 
 \[
-f(t)=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}W(s,\tau)\Psi_{s,\tau}(t)dsd\tau
+  f(t)=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}W(s,\tau)\Psi_{s,\tau}(t)dsd\tau
 \]
 
 \subsection{\acl{dwt}}
 
-Die \ac{cwt} wandelt ein eindimensionales Signal 
+Die \ac{cwt} wandelt ein eindimensionales Signal
 in einen zweidimensionalen Bereich.
 Das stellt allerdings eine Große Redundanz dar.
-Eine Lösung dafür ist es Wavelets nicht kontinuierlich 
+Eine Lösung dafür ist es Wavelets nicht kontinuierlich
 zu skalieren und zu verschieben, sondern beide Werte zu diskretisieren~\cite[S.8]{friendly_wavelet}.
 
 \[
@@ -264,21 +268,21 @@ zu skalieren und zu verschieben, sondern beide Werte zu diskretisieren~\cite[S.8
 
 Mit diesen diskreten Wavelet Koeffizienten lässt sich nun ein Signal analysieren.
 Das Mutter Wavelet und damit die Transformation ist allerdings weiterhin stetig~\cite[S.8]{friendly_wavelet}.
-Die Transformation kann diskretisiert werden, 
+Die Transformation kann diskretisiert werden,
 indem die Wavelet Funktion diskretisiert wird.
-Allerdings kann eine höhere Auflösung erzielt werden, 
-wenn die Wavelet Transformation in zwei Teile, 
+Allerdings kann eine höhere Auflösung erzielt werden,
+wenn die Wavelet Transformation in zwei Teile,
 einen Höherfrequenten Teil und einen Niedrigfrequenten Teil
-aufgespalten wird~\cite[S.14]{friendly_wavelet}. 
+aufgespalten wird~\cite[S.14]{friendly_wavelet}.
 
 \[
-\begin{array}{c}
-  W_\varphi(j,k) = \frac{1}{\sqrt{M}}\sum_{x=0}^{M-1}f(x)\varphi_{j,k}(x) \\
-  W_\Psi(j,k) = \frac{1}{\sqrt{M}}\sum_{x=0}^{M-1}f(x)\Psi_{j,k}(x)
-\end{array}
+  \begin{array}{c}
+    W_\varphi(j,k) = \frac{1}{\sqrt{M}}\sum_{x=0}^{M-1}f(x)\varphi_{j,k}(x) \\
+    W_\Psi(j,k) = \frac{1}{\sqrt{M}}\sum_{x=0}^{M-1}f(x)\Psi_{j,k}(x)
+  \end{array}
 \]
 
-Dabei beschreibt \(j\) die Skalierung des Wavelets 
+Dabei beschreibt \(j\) die Skalierung des Wavelets
 und \(k\) die Verschiebung~\cite[S.9]{wavelet_analysis}.
 
 \subsection{\acl{fwt}}
@@ -289,10 +293,10 @@ Dafür wird die Trennung der \ac{dwt} in Höherfrequenten
 und Niedrigfrequenten Teil ausgenutzt.
 Eine Wavelet Transformation lässt sich basierend
 auf der Nächsten Wavelet Transformation ausdrücken.
-Wenn für \(\varphi(x)\) und analog für \(\Psi(x)\) gilt 
+Wenn für \(\varphi(x)\) und analog für \(\Psi(x)\) gilt
 
 \[
-\varphi(x) = \sum_n h_{\varphi}(n)\sqrt{2}\varphi(2x-n)
+  \varphi(x) = \sum_n h_{\varphi}(n)\sqrt{2}\varphi(2x-n)
 \]
 
 Dann ergibt sich für \(W_\varphi(j,k)\) die folgende Gleichung~\cite[S.11]{wavelet_analysis}.
@@ -307,13 +311,41 @@ Und analog dazu für \(W_\Psi(j,k)\)~\cite[S.11]{wavelet_analysis}.
   W_\Psi(j,k)=\sum_m h_\Psi(m-2k)W_\Psi(j-1,m)
 \]
 
-Damit lässt sich die Wavelet Transformation für ein bestimmtes \(j\) 
+Damit lässt sich die Wavelet Transformation für ein bestimmtes \(j\)
 einfach aus dem vorherigen \(j\) bilden.
 Es entsteht ein Berechnungsbaum mit dem die Wavelet Transformation
 einfach und schnell berechnet werden kann.
+Dieser Berechnungsbaum ist in Abbildung~\ref{fig:wavelet_tree} dargestellt.
+Um eine Stufe der \ac{fwt} zu berechnen,
+muss die Funktion \(h_\Psi(-n)\) und \(h_\varphi(-n)\) mit \(n=2k,k\leq 0\)
+auf die vorherige Stufe der Wavelet Transformation angewendet werden.
+Nach einem Subsampling mit dem Faktor 2 erhält man 
+die nächste Stufe der Wavelet Transformation~\cite[S.12]{wavelet_analysis}.
+Um weitere Frequenzstufen zu erhalten,
+wird der Berechnungsbaum um weitere Stufen vergrößert.
 
-% TODO diagram s.12 wavelet_analysis
-
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[
+    squarednode/.style={rectangle, draw=black, thick, minimum size=5mm},  
+    ]
+    \node (start) {\(W_\varphi(j+1,n)\)};
+    \node[squarednode] (down1) [above right=of start] {\(h_\Psi(-n)\)};
+    \node[squarednode] (sub1) [right=of down1] {\(2\downarrow\)};
+    \node (w1) [right=of sub1] {\(W_\Psi(j,n)\)};
+    \node[squarednode] (down2) [below right=of start] {\(h_\varphi(-n)\)};
+    \node[squarednode] (sub2) [right=of down2] {\(2\downarrow\)};
+    \node (w2) [right=of sub2] {\(W_\varphi(j,n)\)};
+    \draw[thick,->] (start.north) -- (down1.west);
+    \draw[thick,->] (down1.east) -- (sub1.west);
+    \draw[thick,->] (sub1.east) -- (w1.west);
+    \draw[thick,->] (start.south) -- (down2.west);
+    \draw[thick,->] (down2.east) -- (sub2.west);
+    \draw[thick,->] (sub2.east) -- (w2.west);
+  \end{tikzpicture}
+  \caption{Wavelet Berechnungsbaum}
+  \label{fig:wavelet_tree}
+\end{figure}
 
 \subsection{Wavelet Pakete}
 % wavelets-an introduction s10 Wavelet Packets
