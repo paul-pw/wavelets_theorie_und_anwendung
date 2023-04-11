@@ -3,3 +3,4 @@ build/*
 compile_commands.json
 books
 .vscode
+.ipynb_checkpoints

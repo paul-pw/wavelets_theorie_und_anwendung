@@ -60,6 +60,9 @@
 % add bibliography
 \addbibresource{bibliography.bib}
 
+% add Graphics
+\graphicspath{ {./assets/} }
+
 % header and footer setup
 \pagestyle{fancy}
 \fancyhf{}
@@ -198,6 +201,7 @@ Es lässt sich in diesem Beispiel also die musikalische Notation
 eines Stückes rekonstruieren.
 
 \section{Verfahren}
+\label{sec:verfahren}
 
 Der Begriff Wavelet kommt von dem Begriff \emph{Wave} also Welle
 und \emph{let} als Verkleinerungsform, also kleine Welle~\cite[S.2]{wavelet_patterns}.
@@ -319,7 +323,7 @@ Dieser Berechnungsbaum ist in Abbildung~\ref{fig:wavelet_tree} dargestellt.
 Um eine Stufe der \ac{fwt} zu berechnen,
 muss die Funktion \(h_\Psi(-n)\) und \(h_\varphi(-n)\) mit \(n=2k,k\leq 0\)
 auf die vorherige Stufe der Wavelet Transformation angewendet werden.
-Nach einem Subsampling mit dem Faktor 2 erhält man 
+Nach einem Subsampling mit dem Faktor 2 erhält man
 die nächste Stufe der Wavelet Transformation~\cite[S.12]{wavelet_analysis}.
 Um weitere Frequenzstufen zu erhalten,
 wird der Berechnungsbaum um weitere Stufen vergrößert.
@@ -327,7 +331,7 @@ wird der Berechnungsbaum um weitere Stufen vergrößert.
 \begin{figure}
   \centering
   \begin{tikzpicture}[
-    squarednode/.style={rectangle, draw=black, thick, minimum size=5mm},  
+      squarednode/.style={rectangle, draw=black, thick, minimum size=5mm},
     ]
     \node (start) {\(W_\varphi(j+1,n)\)};
     \node[squarednode] (down1) [above right=of start] {\(h_\Psi(-n)\)};
@@ -347,14 +351,28 @@ wird der Berechnungsbaum um weitere Stufen vergrößert.
   \label{fig:wavelet_tree}
 \end{figure}
 
-\subsection{Wavelet Pakete}
-% wavelets-an introduction s10 Wavelet Packets
 \subsection{Basis Funktionen}
 \label{sec:basis_functions}
 % Was gibt es für verschiedene Basis funktionen,
 % wofür sind die jeweils nützlich
 
-\section{Wavelet Transformation versus Fourier Transformation}
+In der Wavelet Analyse können verschiedene Basisfunkionen verwendet werden,
+allerdings müssen alle Basisfunktionen gewisse Eigenschaften erfüllen,
+diese wurden bereits in Abschnitt~\ref{sec:verfahren} beschrieben.
+Solange diese Eigenschaften beachtet werden,
+können Wavelets an verschiedene Anwendungsfälle angepasst werden.
+Zur Erkennung von bestimmten Mustern auf einem Bild
+werden sicherlich andere Basisfunktionen verwendet als zum Entrauschen eines Bildes.
+In Abbildung~\ref{fig:basis_functions} sind einige mögliche Wavelet Basisfunktionen dargestellt.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{wavelets}
+  \caption{Basisfunktionen}
+  \label{fig:basis_functions}
+\end{figure}
+
+\section{Wavelet versus Fourier}
 
 Die Wavelet Transformation hat einige Ähnlichkeiten zur Fourier Transformation.
 Es wird in beiden fällen die Zusammensetzung des Signals aus Basisfunktionen bestimmter Frequenzen analysiert.
