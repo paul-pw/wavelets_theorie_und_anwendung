@@ -356,7 +356,7 @@ wird der Berechnungsbaum um weitere Stufen vergrößert.
 % Was gibt es für verschiedene Basis funktionen,
 % wofür sind die jeweils nützlich
 
-In der Wavelet Analyse können verschiedene Basisfunkionen verwendet werden,
+In der Wavelet Transformation können verschiedene Basisfunkionen verwendet werden,
 allerdings müssen alle Basisfunktionen gewisse Eigenschaften erfüllen,
 diese wurden bereits in Abschnitt~\ref{sec:verfahren} beschrieben.
 Solange diese Eigenschaften beachtet werden,
@@ -364,10 +364,12 @@ können Wavelets an verschiedene Anwendungsfälle angepasst werden.
 Zur Erkennung von bestimmten Mustern auf einem Bild
 werden sicherlich andere Basisfunktionen verwendet als zum Entrauschen eines Bildes.
 In Abbildung~\ref{fig:basis_functions} sind einige mögliche Wavelet Basisfunktionen dargestellt.
+Dabei sind sowohl das Haar als auch das Daubechies Wavelet Beispiele für diskrete Wavelets
+und das Mexican Hat und das Morlet Wavelet Beispiele für kontinuierliche Wavelets.
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{wavelets}
+  \includegraphics[width=\textwidth]{wavelets.png}
   \caption{Basisfunktionen}
   \label{fig:basis_functions}
 \end{figure}
@@ -376,17 +378,62 @@ In Abbildung~\ref{fig:basis_functions} sind einige mögliche Wavelet Basisfunkti
 
 Die Wavelet Transformation hat einige Ähnlichkeiten zur Fourier Transformation.
 Es wird in beiden fällen die Zusammensetzung des Signals aus Basisfunktionen bestimmter Frequenzen analysiert.
-Bei der Fourier Transformation ist die Basisfunktion eine Sinus oder Cosinus Funktionen.
+Bei der Fourier Transformation ist die Basisfunktion eine Sinus oder Cosinus Funktionen~\cite[S.5]{wavelets_intro}.
 Die Wavelet Transformation schränkt die Basisfunktion nicht auf Sinus oder Cosinus Funktionen ein.
 Hier sind alle Funktionen erlaubt, die nicht unendlich sind und ein Integral von 1 haben.
+Die Fourier Transformation ist nur in der Lage den Frequenzbereich eines Signals zu analysieren.
+Die Wavelet Transformation macht es dagegen möglich den Frequenzbereich und den Zeitbereich eines Signals
+gleichzeitig zu analysieren und so Zusammenhänge zwischen den beiden Bereichen zu erkennen,
+um so weitere Aufschlüsse über das Signal zu erhalten.
+Außerdem können bei der Wavelet Transformation verschiedene Basisfunktionen genutzt werden,
+das macht es möglich die Basisfunktionen an den Anwendungsfall anzupassen.
+Die Fourier Transformation ist dagegen auf die Sinus und Cosinus Funktionen beschränkt.
 
 \section{Einsatzgebiete}
+
+Wavelets werden in vielen Bereichen eingesetzt,
+vor allem in Bereichen, die mit digitaler Signalverarbeitung zu tun haben.
+Typische Anwendungen finden sich in der Bildverarbeitung, der Bildkompression und der Audioanalyse,
+aber auch in vielen anderen Bereichen wird die Wavelet Transformation eingesetzt.
+Hier sollen allerdings nur einige wenige Anwendungen vorgestellt werden.
+
 \subsection{Bildverarbeitung}
+
+% TODO grafik hier.
+
+In der Bildverarbeitung wird in der Regel eine zweidimensionale Wavelet Transformation verwendet,
+um ein Bild zu analysieren.
+Mithilfe der Wavelet Transformation kann ein Bild in verschiedene Frequenzbereiche zerlegt werden,
+so können Aktionen nur auf bestimmten Frequenzbereichen durchgeführt werden~\cite[S.38]{dt_manual}.
+In Abbildung~\ref{TODO} ist ein Bild und einige seiner Frequenzbereiche dargestellt.
+Es ist erkennbar, dass die verschiedenen Frequenzbereiche unterschiedliche Details enthalten.
+% TODO Bild beschreiben.
+Mit der Zerlegung des Bildes in einzelne Frequenzbereiche über die Wavelet Transformation
+lassen sich einige Aufgaben in der Bildverarbeitung vereinfachen.
+Hier werden ein paar Beispiele für die Anwendung von Wavelets in der Bildverarbeitung gezeigt.
+
 \subsubsection{Entrauschen}
+
+Typischerweise ist das Rauschen eines Kamerasensors
+hauptsächlich in den höheren Frequenzbereichen des Bildes zu erkennen.
+Diese Frequenzbereiche lassen sich dann mit der Wavelet Transformation isolieren.
+Dann können die Frequenzbereiche, in denen sich das Rauschen befindet,
+getrennt von allen anderen Frequenzbereichen bearbeitet werden,
+um das Rauschen zu reduzieren~\cite[S.117]{dt_manual}.
+Das Rauschen wird dann allerdings von einem anderen Filter
+der nicht teil der Wavelet Transformation ist entfernt.
+Das Rauschen in einem Bild kann über verschiedene Frequenzbereiche verteilt
+und in verschiedenen Frequenzbereichen verschieden stark sein~\cite[S.119]{dt_manual}.
+Die Aufspaltung des Bildes in verschiedene Frequenzbereiche
+macht es möglich in den einzelnen Frequenzbereichen
+das Rauschen unterschiedlich stark zu reduzieren~\cite[S.119]{dt_manual}.
+So kann pro Frequenzbereich ein Kompromiss zwischen der Reduktion des Rauschens
+und dem Erhalten von Details im Bild gefunden werden.
+
 \subsubsection{Retuschieren}
 \subsubsection{Lokaler Kontrast}
 \subsection{Bildkompression}
-\subsection{Audio Analyse}
+\subsection{Audioanalyse}
 
 \newpage
 \printbibliography
