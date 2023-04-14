@@ -435,7 +435,7 @@ und dem Erhalten von Details im Bild gefunden werden.
 Wavelets werden teilweise auch in der Retusche von Haut in Bildern verwendet.
 Bei der Retusche soll die Haut im Bild verbessert werden und ungewollte Details
 wie Pickel oder Narben sollen entfernt werden.
-Ansätze die direkt auf dem Bild arbeiten, 
+Ansätze die direkt auf dem Bild arbeiten,
 ohne das Bild in verschiedene Frequenzbereiche zu zerlegen,
 erzielen oft nicht die gewünschten Ergebnisse~\cite{skin_retouching}.
 Bei der Retusche von Haut sollte darauf geachtet werden,
@@ -444,7 +444,7 @@ Um das zu erreichen, sollte die Hautfarbe und die Hautstruktur erhalten bleiben.
 An dieser Stelle kommt die Wavelet Transformation ins Spiel.
 Die Hautfarbe ist in den niedrigen Frequenzbereichen
 und die Hautstruktur ist in den höheren Frequenzbereichen des Bildes zu finden.
-Im Idealfall finden sich die ungewollten Details 
+Im Idealfall finden sich die ungewollten Details
 in den Frequenzbereichen dazwischen.
 Damit sind die ungewollten Details nun isoliert und können getrennt von
 der Hautfarbe und der Haut retuschiert werden.
@@ -453,15 +453,26 @@ der Hautfarbe und der Haut retuschiert werden.
 
 \subsubsection{Lokaler Kontrast}
 
-Kontrast ist der Unterschied zwischen hellen 
+Kontrast ist der Unterschied zwischen hellen
 und dunklen Bereichen eines Bildes.
-Der lokale Kontrast beschreibt 
+Der lokale Kontrast beschreibt
 den Kontrast auf Teilbereichen eines Bildes.
 Dieser Teilbereich kann verschiedene Größen haben.
 Er kann so groß wie das Ursprungsbild sein
 oder auch nur ein paar Pixel groß.
-
-
+Lokaler Kontrast wird in der Bildverarbeitung verwendet, um
+die wahrgenommene Schärfe zu erhöhen
+und Details im Bild zu verstärken~\cite[S.108]{dt_manual}.
+Die großen und gröberen Teilbereiche des Bildes
+entsprechen den niedrigen Frequenzbereichen des Bildes.
+Die kleinen und feineren Teilbereiche des Bildes
+entsprechen den hohen Frequenzbereichen des Bildes.
+Es wird eine Wavelet Transformation verwendet, um das Bild
+in diese Frequenzbereiche zu zerlegen~\cite[S.107]{dt_manual}.
+Nach dieser Zerlegung wird der lokale Kontrast
+eines Frequenzbereichs erhöht,
+indem der globale Kontrast dieses Frequenzbereichs erhöht wird,
+ohne dabei den Kontrast der anderen Frequenzbereich zu erhöhen.
 
 
 \subsection{Bildkompression}
