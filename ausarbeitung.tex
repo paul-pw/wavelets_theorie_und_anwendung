@@ -28,6 +28,7 @@
 \usepackage{plantuml} % PLANTUML_JAR has to be set and --shell-escape
 \usepackage{amsfonts} % für \mathbb
 \usepackage{placeins} % für \FloatBarrier
+\usepackage[labelformat=parens]{subfig} % für subfiguren
 \usepackage{nicematrix}
 \usepackage{tikz} 
 
@@ -90,6 +91,8 @@
 \DeclareAcronym{cwt}{short=CWT, long=Stetige Wavelet Transformation}
 \DeclareAcronym{dwt}{short=DWT, long=Diskrete Wavelet Transformation}
 \DeclareAcronym{fwt}{short=FWT, long=Schnelle Wavelet Transformation}
+\DeclareAcronym{dct}{short=DCT, long=Diskrete Kosinus Transformation}
+\DeclareAcronym{ezw}{short=EZW, long=Embedded Zero-tree Wavelet}
 
 \newcommand{\reals}{\ensuremath{\mathbb{R}}}
 \newcommand{\natnums}{\ensuremath{\mathbb{N}}}
@@ -176,10 +179,10 @@
 % Content here
 %%%%%% 
 
-\renewcommand{\abstractname}{Abstract} % dass Abstract auch Abstract heißt und nicht zusammenfassung
-\begin{abstract}
-  Abstract Stuff
-\end{abstract}
+%\renewcommand{\abstractname}{Abstract} % dass Abstract auch Abstract heißt und nicht zusammenfassung
+%\begin{abstract}
+%  Abstract Stuff
+%\end{abstract}
 
 \section{Einleitung}
 
@@ -191,7 +194,7 @@ allerdings ist die Wavelet Transformation in der Lage Signale
 auch in der Zeitdomäne zu analysieren~\cite{wavelets_intro}.
 Im Gegensatz zur Fourier Transformation lassen sich mit der Wavelet Transformation
 speziell Lokale Effekte in einem Signal analysieren,
-diese Eigenschaft ist besonders nützlich bei der Analyse von Bildern und Audio Signalen
+diese Eigenschaft ist besonders nützlich bei der Analyse von beispielsweise Bildern und Audio Signalen
 und kann unter anderem auch für die Komprimierung dieser Daten eingesetzt werden.
 Wavelets könnten so beispielsweise genutzt werden,
 um die Frequenz von einer Musikaufnahme zu analysieren.
@@ -393,21 +396,40 @@ Die Fourier Transformation ist dagegen auf die Sinus und Cosinus Funktionen besc
 
 Wavelets werden in vielen Bereichen eingesetzt,
 vor allem in Bereichen, die mit digitaler Signalverarbeitung zu tun haben.
-Typische Anwendungen finden sich in der Bildverarbeitung, der Bildkompression und der Audioanalyse,
+Typische Anwendungen finden sich in der Bildverarbeitung und der Bildkompression
 aber auch in vielen anderen Bereichen wird die Wavelet Transformation eingesetzt.
 Hier sollen allerdings nur einige wenige Anwendungen vorgestellt werden.
 
 \subsection{Bildverarbeitung}
 
-% TODO grafik hier.
+% magick convert .\scale7.jpg -resize 1024x1024 -gravity center -crop 5:4 .\scale7_0.jpg
+\begin{figure}
+  \centering
+  \subfloat[Original] {\includegraphics[width=0.45\textwidth]{original_0.jpg}}\hfil
+  \subfloat[Wavelet Skala 3] {\includegraphics[width=0.45\textwidth]{scale3_0.jpg}}
+
+  \subfloat[Wavelet Skala 5]{\includegraphics[width=0.45\textwidth]{scale5_0.jpg}}\hfil
+  \subfloat[Wavelet Skala 7]{\includegraphics[width=0.45\textwidth]{scale7_0.jpg}}
+  \caption{Wavelet Transformation eines Bildes}
+  \label{fig:image_wavelet}
+\end{figure}
+
 
 In der Bildverarbeitung wird in der Regel eine zweidimensionale Wavelet Transformation verwendet,
 um ein Bild zu analysieren.
 Mithilfe der Wavelet Transformation kann ein Bild in verschiedene Frequenzbereiche zerlegt werden,
 so können Aktionen nur auf bestimmten Frequenzbereichen durchgeführt werden~\cite[S.38]{dt_manual}.
-In Abbildung~\ref{TODO} ist ein Bild und einige seiner Frequenzbereiche dargestellt.
+In Abbildung~\ref{fig:image_wavelet} ist ein Bild 
+und einige seiner Frequenzbereiche, den Skalen, dargestellt.
 Es ist erkennbar, dass die verschiedenen Frequenzbereiche unterschiedliche Details enthalten.
-% TODO Bild beschreiben.
+In den höheren Frequenzbereichen sind die feinsten Details zu erkennen.
+In Abbildung~\ref{fig:image_wavelet} ist das die Wavelet Skala 3. 
+Hier sind sehr feine Details auf den Blütenblättern der Blüte zu erkennen.
+Außerdem findet sich auch ein großer teil des Bildrauschens in diesem Frequenzbereich.
+In den niedrigeren Frequenzbereichen, Skala 7 in Abbildung~\ref{fig:image_wavelet},
+sind die gröberen Details zu erkennen.
+Hier ist zum Beispiel die zweite Blüte zu erkennen, 
+die sich unscharf im Hintergrund des Bildes befindet.
 Mit der Zerlegung des Bildes in einzelne Frequenzbereiche über die Wavelet Transformation
 lassen sich einige Aufgaben in der Bildverarbeitung vereinfachen.
 Hier werden ein paar Beispiele für die Anwendung von Wavelets in der Bildverarbeitung gezeigt.
@@ -424,11 +446,19 @@ Das Rauschen wird dann allerdings von einem anderen Filter
 der nicht teil der Wavelet Transformation ist entfernt.
 Das Rauschen in einem Bild kann über verschiedene Frequenzbereiche verteilt
 und in verschiedenen Frequenzbereichen verschieden stark sein~\cite[S.119]{dt_manual}.
+In Abbildung~\ref{fig:image_wavelet} ist das gut zu erkennen,
+hier befindet sich das Rauschen sowohl in Skala 3 als auch in Skala 5.
+In Skala 7 hingegen ist kein Rauschen zu erkennen.
 Die Aufspaltung des Bildes in verschiedene Frequenzbereiche
 macht es möglich in den einzelnen Frequenzbereichen
 das Rauschen unterschiedlich stark zu reduzieren~\cite[S.119]{dt_manual}.
 So kann pro Frequenzbereich ein Kompromiss zwischen der Reduktion des Rauschens
 und dem Erhalten von Details im Bild gefunden werden.
+Um in dem Bild in Abbildung~\ref{fig:image_wavelet} das Rauschen zu reduzieren,
+müsste demnach hauptsächlich in den Frequenzbereichen Skala 3 und Skala 5
+das Rauschen reduziert werden. 
+In Skala 7 hingegen wäre keine Rauschreduzierung notwendig.
+
 
 \subsubsection{Retuschieren}
 
@@ -444,12 +474,22 @@ Um das zu erreichen, sollte die Hautfarbe und die Hautstruktur erhalten bleiben.
 An dieser Stelle kommt die Wavelet Transformation ins Spiel.
 Die Hautfarbe ist in den niedrigen Frequenzbereichen
 und die Hautstruktur ist in den höheren Frequenzbereichen des Bildes zu finden.
+Abbildung~\ref{fig:skin_retouching} zeigt zwar keine Haut, 
+allerdings lässt sich das Prinzip der Retusche auch auf andere Bilder anwenden.
+Hier wird speziell die Blüte betrachtet.
+Die feine Struktur der Blüte ist in Abbildung~\ref{fig:skin_retouching} in Skala 3 zu erkennen.
+Wohingegen die Helligkeit der Blüte in Skala 7, zu sehen ist,
+bei einem farbigen Bild wäre hier auch die Blütenfarbe zu erkennen.
 Im Idealfall finden sich die ungewollten Details
-in den Frequenzbereichen dazwischen.
+in den Frequenzbereichen zwischen Struktur und Farbe des Bildes.
 Damit sind die ungewollten Details nun isoliert und können getrennt von
-der Hautfarbe und der Haut retuschiert werden.
-
-% TODO am besten noch Bild beschreiben.
+der Farbe und der Struktur retuschiert werden.
+In Abbildung~\ref{fig:skin_retouching} befindet sich Beispielsweise ein kleiner schwarzer Fleck
+in den oberen linken Staubbeuteln der Blüte, dieser soll entfernt werden.
+Dieser Fleck befindet sich in den Frequenzbereichen zwischen Struktur und Farbe
+und ist am deutlichsten in Skala 5 zu erkennen.
+Hier kann dieser Fleck nun entfernt werden 
+ohne die Farbe oder Struktur des Bildes zu beeinflussen.
 
 \subsubsection{Lokaler Kontrast}
 
@@ -473,10 +513,64 @@ Nach dieser Zerlegung wird der lokale Kontrast
 eines Frequenzbereichs erhöht,
 indem der globale Kontrast dieses Frequenzbereichs erhöht wird,
 ohne dabei den Kontrast der anderen Frequenzbereich zu erhöhen.
-
+Um in Abbildung~\ref{fig:image_wavelet} beispielsweise
+den lokalen Kontrast in den feinsten Details zu erhöhen,
+müsste der Kontrast in Skala 3 vor der Rücktransformation erhöht werden.
 
 \subsection{Bildkompression}
-\subsection{Audioanalyse}
+
+Wavelets können auch verwendet werden, um Daten zu komprimieren.
+Ein Beispiel hierfür ist JPEG 2000.
+Während die JPEG-Kompression die \ac{dct} verwendet,
+um die Bilddaten zu komprimieren,
+verwendet JPEG 2000 die Wavelet Transformation~\cite[S.1]{jpeg2000}.
+Für die \ac{dct} der JPEG-Kompression wird das Bild zuerst in kleine Blöcke zerlegt,
+auf die dann die \ac{dct} angewendet wird.
+Damit lässt sich das Bild zwar gut komprimieren,
+allerdings kann es bei einer hohen Kompressionsrate zu Artefakten kommen,
+bei denen die Blöcke deutlich zu erkennen sind~\cite[S.13]{jpeg2000}.
+Die JPEG 2000 Kompression umgeht dieses Problem,
+indem die Kompression direkt auf das ganze Bild angewendet wird.
+So entstehen keine Blockartefakten mehr.
+Für die JPEG 2000 Kompression wird das Bild 
+eine zweidimensionale Wavelet Transformation angewendet,
+die aus zwei Ebenen von eindimensionalen 
+Wavelet Transformationen auf Zeilen und Spalten besteht~\cite[S.2]{jpeg2000}.
+Danach folgt die eigentliche Bildkompression.
+Es handelt sich um die sogenannte \ac{ezw} Kompression~\cite[S.1]{jpeg2000}.
+Dabei wird ausgenutzt, dass Bereiche mit Werten nahe null in niedrigen Frequenzen 
+häufig mit Werten nahe null in allen höheren Frequenzen korrelieren~\cite[S.9]{jpeg2000}.
+Es können null Bäume aufgebaut werden, die die Positionen dieser Null Bereiche speichern.
+Da die null Bereiche mit den null Bäumen einfach rekonstruiert werden können,
+müssen nur noch die null Bäume gespeichert werden~\cite[S.10]{jpeg2000}.
+Das sorgt für einen großen Kompressionsgewinn
+und eine bessere Kompression und Qualität als bei JPEG.
+
+\section{Fazit}
+
+Die Wavelet Transformation bietet viele Vorteile gegenüber der Fourier Transformation
+und wird in vielen Anwendungen der Bildverarbeitung verwendet.
+In dieser Arbeit wurde die Funktionsweise der Wavelet Transformation erklärt 
+und einige Anwendungsfälle beispielhaft vorgestellt, 
+um eine Übersicht über die Wavelet Transformation zu erhalten.
+In der Bildverarbeitung wird die Wavelet Transformation
+an vielen Stellen verwendet besonders, 
+wenn zwischen verschiedenen Detailebenen unterschieden werden muss.
+Die Wavelet Transformation ist besonders nützlich in der Retusche von Bildern,
+der Rauschreduzierung und um den lokalen Kontrast in Bildern zu erhöhen.
+Außerdem hat die Wavelet Transformation einen etablierten Platz in der Bildkompression
+mit der \ac{ezw} Kompression von JPEG 2000 gefunden.
+Neben den hier vorgestellten Anwendungsfällen
+findet die Wavelet Transformation aber auch in vielen anderen Anwendungen Verwendung.
+Im Bereich der Bildverarbeitung wird die Wavelet Transformation 
+beispielsweise noch für die Mustererkennung verwendet~\cite{wavelet_patterns}.
+Fokus dieser Arbeit ist die Bildverarbeitung,
+jedoch werden Wavelets auch in anderen Bereichen der Signalverarbeitung 
+wie zum Beispiel der Audioverarbeitung verwendet~\cite{wavelets_audio}.
+Diese Arbeit hat das Ziel eine Übersicht über die Wavelet Transformation 
+und einige ihrer Anwendungen zu geben.
+In weiteren Arbeiten kann nun auf weitere Anwendungsfälle eingegangen werden
+und beispielsweise der Einfluss der verschiedene Wavelet Basisfunktionen genauer erklärt werden.
 
 \newpage
 \printbibliography
