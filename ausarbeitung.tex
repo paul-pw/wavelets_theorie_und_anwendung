@@ -190,10 +190,10 @@ Wavelets spielen in der heutigen Bildverarbeitung eine große Rolle.
 Sie erlauben es Signale zu analysieren, Signale zu komprimieren,
 Rauschen zu entfernen und vieles mehr.
 Die Wavelet Transformation hat einige Ähnlichkeiten mit der Fourier Transformation
-allerdings ist die Wavelet Transformation in der Lage Signale
-auch in der Zeitdomäne zu analysieren~\cite{wavelets_intro}.
+allerdings ist die Wavelet Transformation in der Lage,
+Signale auch in der Zeitdomäne zu analysieren~\cite{wavelets_intro}.
 Im Gegensatz zur Fourier Transformation lassen sich mit der Wavelet Transformation
-speziell Lokale Effekte in einem Signal analysieren,
+speziell lokale Effekte in einem Signal analysieren,
 diese Eigenschaft ist besonders nützlich bei der Analyse von beispielsweise Bildern und Audio Signalen
 und kann unter anderem auch für die Komprimierung dieser Daten eingesetzt werden.
 Wavelets könnten so beispielsweise genutzt werden,
@@ -221,18 +221,18 @@ Eine wichtige Eigenschaft ist die sogenannte \emph{admisibility} Bedingung~\cite
 Diese sagt aus, dass die Basisfunktion eine oszillierende Funktion sein muss,
 deren Integral über die Zeit null sein muss~\cite[S.6]{friendly_wavelet}.
 Eine weitere wichtige Eigenschaft ist die \emph{Regularität} des Wavelets.
-Die sorgt für einen schnellen Zerfall des Wavelets,
-also dafür das die Basisfunktion schnell gegen null geht~\cite[S.6]{friendly_wavelet}.
+Die sorgt für einen schnellen Zerfall des Wavelets, also dafür, 
+dass die Basisfunktion schnell gegen null geht~\cite[S.6]{friendly_wavelet}.
 Die genannten Eigenschaften reichen nicht aus um ein Wavelet zu definieren,
 geben aber Aufschluss über die Form einer Wavelet Funktion
 als schwingende und schnell abfallende Funktion.
 Es wird kein spezielles Wavelet vorgegeben,
-viel ist es möglich mit diesen Rahmenbedingungen Basisfunktionen zu wählen,
+insbesondere ist es möglich mit diesen Rahmenbedingungen Basisfunktionen zu wählen,
 die für die jeweiligen Anwendungsfälle angepasst sind~\cite[S.5]{friendly_wavelet}.
 
 \subsection{\acl{cwt}}
 
-Für die \ac{cwt} wird das Mutter Wavelet skaliert und verschoben.
+Für die \acf{cwt} wird das Mutter Wavelet skaliert und verschoben.
 Der Skalierungsfaktor wird mit \(s\) bezeichnet
 und die Verschiebung des Wavelets mit \(\tau\).
 Das geschieht mit der folgenden Formel.
@@ -263,7 +263,7 @@ Die Rücktransformation der Wavelet Transformation sieht wie folgt aus~\cite[S.5
 
 \subsection{\acl{dwt}}
 
-Die \ac{cwt} wandelt ein eindimensionales Signal
+Die \acf{cwt} wandelt ein eindimensionales Signal
 in einen zweidimensionalen Bereich.
 Das stellt allerdings eine Große Redundanz dar.
 Eine Lösung dafür ist es Wavelets nicht kontinuierlich
@@ -294,13 +294,13 @@ und \(k\) die Verschiebung~\cite[S.9]{wavelet_analysis}.
 
 \subsection{\acl{fwt}}
 
-Die \ac{fwt} ist eine Weiterentwicklung der \ac{dwt},
+Die \acf{fwt} ist eine Weiterentwicklung der \ac{dwt},
 die es möglich macht die \ac{dwt} effizienter auszuführen.
-Dafür wird die Trennung der \ac{dwt} in Höherfrequenten
-und Niedrigfrequenten Teil ausgenutzt.
+Dafür wird die Trennung der \ac{dwt} in einen Höherfrequenten
+und einen Niedrigfrequenten Teil ausgenutzt.
 Eine Wavelet Transformation lässt sich basierend
-auf der Nächsten Wavelet Transformation ausdrücken.
-Wenn für \(\varphi(x)\) und analog für \(\Psi(x)\) gilt
+auf der nächsten Wavelet Transformation ausdrücken.
+Wenn für \(\varphi(x)\) und analog für \(\Psi(x)\) gilt.
 
 \[
   \varphi(x) = \sum_n h_{\varphi}(n)\sqrt{2}\varphi(2x-n)
@@ -320,7 +320,7 @@ Und analog dazu für \(W_\Psi(j,k)\)~\cite[S.11]{wavelet_analysis}.
 
 Damit lässt sich die Wavelet Transformation für ein bestimmtes \(j\)
 einfach aus dem vorherigen \(j\) bilden.
-Es entsteht ein Berechnungsbaum mit dem die Wavelet Transformation
+Es entsteht ein Berechnungsbaum, mit dem die Wavelet Transformation
 einfach und schnell berechnet werden kann.
 Dieser Berechnungsbaum ist in Abbildung~\ref{fig:wavelet_tree} dargestellt.
 Um eine Stufe der \ac{fwt} zu berechnen,
@@ -350,7 +350,7 @@ wird der Berechnungsbaum um weitere Stufen vergrößert.
     \draw[thick,->] (down2.east) -- (sub2.west);
     \draw[thick,->] (sub2.east) -- (w2.west);
   \end{tikzpicture}
-  \caption{Wavelet Berechnungsbaum}
+  \caption{Wavelet Transformation Berechnungsbaum}
   \label{fig:wavelet_tree}
 \end{figure}
 
@@ -380,16 +380,16 @@ und das Mexican Hat und das Morlet Wavelet Beispiele für kontinuierliche Wavele
 \section{Wavelet versus Fourier}
 
 Die Wavelet Transformation hat einige Ähnlichkeiten zur Fourier Transformation.
-Es wird in beiden fällen die Zusammensetzung des Signals aus Basisfunktionen bestimmter Frequenzen analysiert.
-Bei der Fourier Transformation ist die Basisfunktion eine Sinus oder Cosinus Funktionen~\cite[S.5]{wavelets_intro}.
+Es wird in beiden Fällen die Zusammensetzung des Signals aus Basisfunktionen bestimmter Frequenzen analysiert.
+Bei der Fourier Transformation ist die Basisfunktion eine Sinus oder Cosinus Funktion~\cite[S.5]{wavelets_intro}.
 Die Wavelet Transformation schränkt die Basisfunktion nicht auf Sinus oder Cosinus Funktionen ein.
 Hier sind alle Funktionen erlaubt, die nicht unendlich sind und ein Integral von 1 haben.
-Die Fourier Transformation ist nur in der Lage den Frequenzbereich eines Signals zu analysieren.
+Die Fourier Transformation ist nur in der Lage, den Frequenzbereich eines Signals zu analysieren.
 Die Wavelet Transformation macht es dagegen möglich den Frequenzbereich und den Zeitbereich eines Signals
 gleichzeitig zu analysieren und so Zusammenhänge zwischen den beiden Bereichen zu erkennen,
 um so weitere Aufschlüsse über das Signal zu erhalten.
-Außerdem können bei der Wavelet Transformation verschiedene Basisfunktionen genutzt werden,
-das macht es möglich die Basisfunktionen an den Anwendungsfall anzupassen.
+Außerdem können bei der Wavelet Transformation verschiedene Basisfunktionen genutzt werden.
+Das macht es möglich, die Basisfunktionen an den Anwendungsfall anzupassen.
 Die Fourier Transformation ist dagegen auf die Sinus und Cosinus Funktionen beschränkt.
 
 \section{Einsatzgebiete}
@@ -425,7 +425,7 @@ Es ist erkennbar, dass die verschiedenen Frequenzbereiche unterschiedliche Detai
 In den höheren Frequenzbereichen sind die feinsten Details zu erkennen.
 In Abbildung~\ref{fig:image_wavelet} ist das die Wavelet Skala 3. 
 Hier sind sehr feine Details auf den Blütenblättern der Blüte zu erkennen.
-Außerdem findet sich auch ein großer teil des Bildrauschens in diesem Frequenzbereich.
+Außerdem findet sich auch ein großer Teil des Bildrauschens in diesem Frequenzbereich.
 In den niedrigeren Frequenzbereichen, Skala 7 in Abbildung~\ref{fig:image_wavelet},
 sind die gröberen Details zu erkennen.
 Hier ist zum Beispiel die zweite Blüte zu erkennen, 
@@ -442,8 +442,8 @@ Diese Frequenzbereiche lassen sich dann mit der Wavelet Transformation isolieren
 Dann können die Frequenzbereiche, in denen sich das Rauschen befindet,
 getrennt von allen anderen Frequenzbereichen bearbeitet werden,
 um das Rauschen zu reduzieren~\cite[S.117]{dt_manual}.
-Das Rauschen wird dann allerdings von einem anderen Filter
-der nicht teil der Wavelet Transformation ist entfernt.
+Das Rauschen wird dann allerdings von einem anderen Filter,
+der nicht teil der Wavelet Transformation ist, entfernt.
 Das Rauschen in einem Bild kann über verschiedene Frequenzbereiche verteilt
 und in verschiedenen Frequenzbereichen verschieden stark sein~\cite[S.119]{dt_manual}.
 In Abbildung~\ref{fig:image_wavelet} ist das gut zu erkennen,
@@ -465,7 +465,7 @@ In Skala 7 hingegen wäre keine Rauschreduzierung notwendig.
 Wavelets werden teilweise auch in der Retusche von Haut in Bildern verwendet.
 Bei der Retusche soll die Haut im Bild verbessert werden und ungewollte Details
 wie Pickel oder Narben sollen entfernt werden.
-Ansätze die direkt auf dem Bild arbeiten,
+Ansätze, die direkt auf dem Bild arbeiten,
 ohne das Bild in verschiedene Frequenzbereiche zu zerlegen,
 erzielen oft nicht die gewünschten Ergebnisse~\cite{skin_retouching}.
 Bei der Retusche von Haut sollte darauf geachtet werden,
@@ -474,21 +474,21 @@ Um das zu erreichen, sollte die Hautfarbe und die Hautstruktur erhalten bleiben.
 An dieser Stelle kommt die Wavelet Transformation ins Spiel.
 Die Hautfarbe ist in den niedrigen Frequenzbereichen
 und die Hautstruktur ist in den höheren Frequenzbereichen des Bildes zu finden.
-Abbildung~\ref{fig:skin_retouching} zeigt zwar keine Haut, 
+Abbildung~\ref{fig:image_wavelet} zeigt zwar keine Haut, 
 allerdings lässt sich das Prinzip der Retusche auch auf andere Bilder anwenden.
 Hier wird speziell die Blüte betrachtet.
-Die feine Struktur der Blüte ist in Abbildung~\ref{fig:skin_retouching} in Skala 3 zu erkennen.
+Die feine Struktur der Blüte ist in Abbildung~\ref{fig:image_wavelet} in Skala 3 zu erkennen.
 Wohingegen die Helligkeit der Blüte in Skala 7, zu sehen ist,
 bei einem farbigen Bild wäre hier auch die Blütenfarbe zu erkennen.
 Im Idealfall finden sich die ungewollten Details
 in den Frequenzbereichen zwischen Struktur und Farbe des Bildes.
 Damit sind die ungewollten Details nun isoliert und können getrennt von
 der Farbe und der Struktur retuschiert werden.
-In Abbildung~\ref{fig:skin_retouching} befindet sich Beispielsweise ein kleiner schwarzer Fleck
+In Abbildung~\ref{fig:image_wavelet} befindet sich Beispielsweise ein kleiner schwarzer Fleck
 in den oberen linken Staubbeuteln der Blüte, dieser soll entfernt werden.
 Dieser Fleck befindet sich in den Frequenzbereichen zwischen Struktur und Farbe
 und ist am deutlichsten in Skala 5 zu erkennen.
-Hier kann dieser Fleck nun entfernt werden 
+Hier kann dieser Fleck nun entfernt werden,
 ohne die Farbe oder Struktur des Bildes zu beeinflussen.
 
 \subsubsection{Lokaler Kontrast}
@@ -531,8 +531,8 @@ allerdings kann es bei einer hohen Kompressionsrate zu Artefakten kommen,
 bei denen die Blöcke deutlich zu erkennen sind~\cite[S.13]{jpeg2000}.
 Die JPEG 2000 Kompression umgeht dieses Problem,
 indem die Kompression direkt auf das ganze Bild angewendet wird.
-So entstehen keine Blockartefakten mehr.
-Für die JPEG 2000 Kompression wird das Bild 
+So entstehen keine Blockartefakte mehr.
+Für die JPEG 2000 Kompression wird auf das Bild 
 eine zweidimensionale Wavelet Transformation angewendet,
 die aus zwei Ebenen von eindimensionalen 
 Wavelet Transformationen auf Zeilen und Spalten besteht~\cite[S.2]{jpeg2000}.
@@ -554,8 +554,8 @@ In dieser Arbeit wurde die Funktionsweise der Wavelet Transformation erklärt
 und einige Anwendungsfälle beispielhaft vorgestellt, 
 um eine Übersicht über die Wavelet Transformation zu erhalten.
 In der Bildverarbeitung wird die Wavelet Transformation
-an vielen Stellen verwendet besonders, 
-wenn zwischen verschiedenen Detailebenen unterschieden werden muss.
+an vielen Stellen verwendet,
+besonders wenn zwischen verschiedenen Detailebenen unterschieden werden muss.
 Die Wavelet Transformation ist besonders nützlich in der Retusche von Bildern,
 der Rauschreduzierung und um den lokalen Kontrast in Bildern zu erhöhen.
 Außerdem hat die Wavelet Transformation einen etablierten Platz in der Bildkompression
@@ -565,8 +565,8 @@ findet die Wavelet Transformation aber auch in vielen anderen Anwendungen Verwen
 Im Bereich der Bildverarbeitung wird die Wavelet Transformation 
 beispielsweise noch für die Mustererkennung verwendet~\cite{wavelet_patterns}.
 Fokus dieser Arbeit ist die Bildverarbeitung,
-jedoch werden Wavelets auch in anderen Bereichen der Signalverarbeitung 
-wie zum Beispiel der Audioverarbeitung verwendet~\cite{wavelets_audio}.
+jedoch werden Wavelets auch in anderen Bereichen der Signalverarbeitung,
+wie zum Beispiel der Audioverarbeitung, verwendet~\cite{wavelets_audio}.
 Diese Arbeit hat das Ziel eine Übersicht über die Wavelet Transformation 
 und einige ihrer Anwendungen zu geben.
 In weiteren Arbeiten kann nun auf weitere Anwendungsfälle eingegangen werden
