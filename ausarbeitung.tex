@@ -300,19 +300,19 @@ Dafür wird die Trennung der \ac{dwt} in einen Höherfrequenten
 und einen Niedrigfrequenten Teil ausgenutzt.
 Eine Wavelet Transformation lässt sich basierend
 auf der nächsten Wavelet Transformation ausdrücken.
-Wenn für \(\varphi(x)\) und analog für \(\Psi(x)\) gilt.
+Wenn für \(\varphi(x)\) und analog für \(\Psi(x)\) gilt,
 
 \[
   \varphi(x) = \sum_n h_{\varphi}(n)\sqrt{2}\varphi(2x-n)
 \]
 
-Dann ergibt sich für \(W_\varphi(j,k)\) die folgende Gleichung~\cite[S.11]{wavelet_analysis}.
+dann ergibt sich für \(W_\varphi(j,k)\) die folgende Gleichung~\cite[S.11]{wavelet_analysis}
 
 \[
   W_\varphi(j,k)=\sum_m h_\varphi(m-2k)W_\varphi(j-1,m)
 \]
 
-Und analog dazu für \(W_\Psi(j,k)\)~\cite[S.11]{wavelet_analysis}.
+und analog dazu für \(W_\Psi(j,k)\)~\cite[S.11]{wavelet_analysis}.
 
 \[
   W_\Psi(j,k)=\sum_m h_\Psi(m-2k)W_\Psi(j-1,m)
